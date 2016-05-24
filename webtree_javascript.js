@@ -32,6 +32,7 @@ var curXMWF = leftMargMWF;
 var curYMWF = topMargMWF;
 var xAddMWF = 220;
 var yAddMWF = 110;
+
 for (var i=0; i<3; i++){ // 3 = MWF
   for (var j=0; j<8; j++){  //8 courses each day
     mwfarr[j] = context.rect(curXMWF,curYMWF,widthMWF,heightMWF); //x, y, width, height
