@@ -20,12 +20,23 @@ for (var i=0; i<5; i++){
   var text = context.text(70+i*110, 15, days_of_week[i]); //x, y, text
 }
 
+
 var mwfarr = []; //list of MWF rectangles
 //Creates MWF class cells
+
+var topMargMWF = 80;
+var leftMargMWF = 20;
+var widthMWF = 100;
+var heightMWF = 100;
+var curXMWF = leftMargMWF;
+var curYMWF = topMargMWF;
+var xAddMWF = 220;
+var yAddMWF = 110;
 for (var i=0; i<3; i++){ // 3 = MWF
-  for (var j=0; j<9; j++){  //9 courses each day
-    mwfarr[j] = context.rect(20+i*220,40+j*110,100,100); //x, y, width, height
+  for (var j=0; j<8; j++){  //8 courses each day
+    mwfarr[j] = context.rect(curXMWF,curYMWF,widthMWF,heightMWF); //x, y, width, height
     mwfarr[j].attr('fill', 'pink'); //make the rectangles pink
+    curYMWF = curYMWF + yAddMWF;
     if (i === 0){ //Assign id with Day and Time to Monday
       mwfarr[j].id = days_of_week[i] + times_of_dayMWF[j];
     }
@@ -38,23 +49,49 @@ for (var i=0; i<3; i++){ // 3 = MWF
     mwfarr[j].mouseover(highlight); //if mouseover, highlight
     mwfarr[j].mouseout(unhighlight); //once no longer hovering, un-highlight
   }
+  curXMWF = curXMWF + xAddMWF;
+  curYMWF = topMargMWF;
 }
 
 var trarr=[];
 //Tuesday Thursday (same idea)
-for (var i=0; i<2; i++){
-  for (var j=0; j<6; j++){    
-    trarr[j] = context.rect(130+i*220,40+j*160,100,150);
-    trarr[j].attr('fill', 'pink');
-    if (i === 0){
-      trarr[j].id = days_of_week[1] + times_of_dayTR[j];
+
+var topMargTR = 40;
+var leftMargTR = 130;
+var widthTR = 100;
+var heightTR = 150;
+var curXTR = leftMargTR;
+var curYTR = topMargTR;
+var xAddTR = 220;
+var yAddTR = 160;
+var commonHour = 128;
+
+for (var x=0; x<2; x++){
+  for (var y=0; y<6; y++){  
+
+    if (y === 2){
+      trarr[y] = context.rect(curXTR,curYTR,widthTR,118);
+      trarr[y].attr('fill', 'pink');
+      var cHourText = context.text(curXTR + 50, curYTR + 50, "Common Hour");
+      curYTR = curYTR + commonHour;
     }
-    if (i === 1){
-      trarr[j].id = days_of_week[3] + times_of_dayTR[j];
+    else{
+    trarr[y] = context.rect(curXTR,curYTR,widthTR,heightTR);
+    trarr[y].attr('fill', 'pink');
+    curYTR = curYTR + yAddTR;
     }
-    trarr[j].mouseover(highlight);
-    trarr[j].mouseout(unhighlight);
+    if (x === 0){
+      trarr[y].id = days_of_week[1] + times_of_dayTR[y];
+    }
+    if (x === 1){
+      trarr[y].id = days_of_week[3] + times_of_dayTR[y];
+    }
+
+    trarr[y].mouseover(highlight);
+    trarr[y].mouseout(unhighlight);
   }
+  curXTR = curXTR + xAddTR;
+  curYTR = topMargTR;
 }
 
 //this is the CSV--we only have two classes. We'll eventually
